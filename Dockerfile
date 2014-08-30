@@ -17,15 +17,13 @@ RUN chown -R nodejs:nodejs /srv
 RUN chown -R nodejs:nodejs /.npm
 
 RUN echo '. /srv/nvm/nvm.sh' > /srv/bash_init
-RUN echo 'export MONGODB_URI=mongodb://$MONGODB_PORT_27017_TCP_ADDR:$MONGODB_PORT_27017_TCP_PORT/cube' >> /srv/bash_init
+RUN echo 'export MONGODB_URI=mongodb://$MONGODB_1_PORT_27017_TCP_ADDR:$MONGODB_1_PORT_27017_TCP_PORT/cube' >> /srv/bash_init
 
 USER nodejs
 WORKDIR /srv/cube
 ENV BASH_ENV /srv/bash_init
 ENTRYPOINT ["/bin/bash", "-c"]
 CMD ["npm install && nf -p 1080 start $SERVICE"]
-
-VOLUME /srv/cube
 
 EXPOSE 1080
 EXPOSE 1180
